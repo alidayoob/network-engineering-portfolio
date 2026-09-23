@@ -1,6 +1,7 @@
 # Enterprise Network Design Lab — 3-Tier Hierarchical Architecture
 
 A complete simulated enterprise network built in Cisco Packet Tracer, demonstrating hierarchical network design, redundancy, VLAN segmentation, dynamic routing, VoIP, and network security/management best practices.
+You can check the ![config](configs) file to read devices configurations.
 
 ---
 ![Lab Topology](evidence/topologyAI.png)
