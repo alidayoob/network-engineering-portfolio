@@ -265,6 +265,7 @@ Network Diagramming · IP Address Management (IPAM) Tables · Technical README A
 7. **SSH management:** successful SSH sessions with any Net-device from only Admin PCs (SSH is controled by an ACL to deney SSH-access from random PCs even from inside the network ), each displaying the security banner and landing directly in privileged EXEC mode.
 From an allowed pc (ADMIN01)
 ![SSH-Login](evidence/SSH-Login-allowed.png)
+
 From any other device inside the network 
 ![SSH-Login2](evidence/SSH-Login-deni.png)
 
