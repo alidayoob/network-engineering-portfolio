@@ -35,20 +35,7 @@ This lab simulates a small company's network, built with a standard **3-tier hie
 
 ## Topology
 
-```
-                    Internet (ISPA)
-                    /            \
-              Main-Router(R1)  BackupR(R2)
-                    \            /
-              CSW1 ========== CSW2      (Core)
-                 \\  ×  //  \\  ×  //
-              DSW1 ========== DSW2      (Distribution)
-             / |  |  |  \    / |  |  |  \
-          ASW1 ASW2 ASW3 ASW4 ASW5       (Access — one per floor)
-           |     |     |     |     |
-      Reception Eng  Tech  Mgmt  Basement
-      +Guest   +Fin  +Supp        (Servers)
-```
+![Lab_Tobology](evidence/topology.png)
 
 - **Core (CSW1/CSW2):** aggregation point, full-mesh redundant links to both routers and both distribution switches.
 - **Distribution (DSW1/DSW2):** Inter-VLAN routing (SVIs), HSRP gateway redundancy, STP root, DHCP relay.
@@ -85,7 +72,7 @@ This lab simulates a small company's network, built with a standard **3-tier hie
 | ISPA | Gi0/1/0 | 1.1.1.1 | /30 | R2 Gi0/3/0 |
 | R1 | Gi0/3/0 | 8.8.8.10 | /30 | ISPA Gi0/0/0 |
 | R2 | Gi0/3/0 | 1.1.1.2 | /30 | ISPA Gi0/1/0 |
-| Web/DNS Server | Fa0 | 8.8.8.14 | /30 | ISPA Gi0/0 |
+| Web Server | Fa0 | 8.8.8.14 | /30 | ISPA Gi0/0 |
 
 ### Router ↔ Core
 | Device | Interface | IP Address | Mask | Connected To |
@@ -143,17 +130,18 @@ This lab simulates a small company's network, built with a standard **3-tier hie
 ### Access Switch Management IPs (VLAN 900)
 | Device | IP Address | Default Gateway |
 |---|---|---|
-| ASW1 | 10.0.1.150 | 10.0.1.145 |
-| ASW2 | 10.0.1.151 | 10.0.1.145 |
-| ASW3 | 10.0.1.152 | 10.0.1.145 |
-| ASW4 | 10.0.1.153 | 10.0.1.145 |
-| ASW5 | 10.0.1.154 | 10.0.1.145 |
-| Admin-PC | 10.0.1.155 | 10.0.1.145 |
+| ASW1 | 10.0.1.151 | 10.0.1.145 |
+| ASW2 | 10.0.1.152 | 10.0.1.145 |
+| ASW3 | 10.0.1.153 | 10.0.1.145 |
+| ASW4 | 10.0.1.154 | 10.0.1.145 |
+| ASW5 | 10.0.1.155 | 10.0.1.145 |
+| Admin-PC 01 | 10.0.1.157 | 10.0.1.145 |
+| Admin-PC 02 | 10.0.1.156 | 10.0.1.145 |
 
 ### Servers (VLAN 70)
 | Server | IP Address | Role |
 |---|---|---|
-| SVR0 | 10.0.1.98 | DHCP / File Server |
+| SVR0 | 10.0.1.98 | DHCP/DNS Server |
 | SVR1 | 10.0.1.101 | Syslog Server |
 | Security Mgmt Server | (VLAN 70) | Security management |
 
@@ -232,13 +220,30 @@ This lab simulates a small company's network, built with a standard **3-tier hie
 *(Screenshots referenced here are included in the `/evidence` folder of this repository.)*
 
 1. **End-to-end connectivity:** successful ping from Reception-PC2 (VLAN 10) to a simulated WAN address, confirming the full path PC → DSW → CSW → Router → ISP.
+![ping1](evidence/PING1-end2end.png)
+
 2. **HSRP redundancy:** `show standby brief` on DSW1 and DSW2 confirms correct Active/Standby distribution matching the design table above.
+![standby](evidence/Standby-evidence.png)
+
 3. **OSPF + ECMP:** `show ip route` on DSW1 shows dual equal-cost paths (via CSW1 and CSW2) for most destinations, including the default route.
+![OSPF-Evi](evidence/CSW1-OSPF-DualRoute.png) ![OSPF-Evi](evidence/CSW2-OSPF-DualRoute.png)
+
 4. **Voice registration:** `show ephone registered` confirms all IP phones registered with their correct, unique extensions.
+![ephoneR2](evidence/Ephone-on-R2.png)
 5. **Guest WiFi isolation:** ping from the Guest WiFi VLAN to an internal subnet returns "Destination host unreachable" (explicit ACL deny), while ping to the simulated internet succeeds.
+![guest-wifi-isolation](evidence/guest-wifi-isolation.png)
+
 6. **Syslog:** timestamped log entries received on SVR1 from multiple devices, confirming NTP-synchronized, accurate logging.
-7. **SSH management:** successful SSH sessions from four independent devices (R1, R2, ASW1, ASW2), each displaying the security banner and landing directly in privileged EXEC mode.
+![syslog-service](evidence/Syslog-service.png)
+
+7. **SSH management:** successful SSH sessions with any Net-device from only Admin PCs (SSH is controled by an ACL to deney SSH-access from random PCs even from inside the network ), each displaying the security banner and landing directly in privileged EXEC mode.
+From an allowed pc (ADMIN01)
+![SSH-Login](evidence/SSH-Login-allowed.png)
+From any other device inside the network 
+![SSH-Login2](evidence/SSH-Login-deni.png)
+
 8. **DNS + HTTP:** a browser on an internal PC successfully resolves `google.com` via the internal DNS server and loads the simulated web page — full application-layer verification of the entire network stack.
+![dns-lookup](evidence/dns-lookup.png) ![http-browsing](evidence/DNS-HTTP-access-via-browser.png)
 
 ---
 
