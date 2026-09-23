@@ -3,7 +3,7 @@
 A complete simulated enterprise network built in Cisco Packet Tracer, demonstrating hierarchical network design, redundancy, VLAN segmentation, dynamic routing, VoIP, and network security/management best practices.
 
 ---
-![Lab Topology\\](topologyAI.png)
+![Lab Topology\\](\evidence\topologyAI.png)
 ## Table of Contents
 
 1. [Overview](#overview)
