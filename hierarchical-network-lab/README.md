@@ -32,6 +32,30 @@ This lab simulates a small company's network, built with a standard **3-tier hie
 - **Defense-in-depth security** (port security, ACLs, SSH-only management, restricted admin access)
 
 ---
+## Skills Demonstrated
+
+**Network Design & Architecture**
+3-Tier Hierarchical Design (Core/Distribution/Access) · VLSM Subnetting · Structured IP Addressing Scheme · Redundant Topology Design
+
+**Switching**
+VLANs & Trunking (802.1Q) · Inter-VLAN Routing (SVIs) · EtherChannel (LACP) · Spanning-Tree (PVST+, Root Bridge Placement) · PortFast & BPDU Guard · Port Security
+
+**Routing**
+OSPF (Single-Area, Passive Interfaces, Route Redistribution) · HSRP (Active/Standby Load Balancing) · Static & Default Routing · ECMP
+
+**Network Services**
+DHCP (Centralized + Relay/`ip helper-address`) · DNS · NTP (Redundant Masters) · Syslog Centralized Logging · Voice/VoIP (Cisco CME, IP Telephony)
+
+**Security**
+ACLs (Standard/Extended) · SSH & Local AAA · VLAN Segmentation for Guest Isolation · Dedicated Management VLAN · Trunk Hardening (Native VLAN, DTP Disable)
+
+**Troubleshooting & Diagnostics**
+Systematic Layer 1–3 Troubleshooting · `show`/`debug` Command Analysis · Root-Cause Diagnosis of 20+ Real Configuration Issues
+
+**Documentation**
+Network Diagramming · IP Address Management (IPAM) Tables · Technical README Authoring · Design Decision Justification.
+
+---
 
 ## Topology
 
