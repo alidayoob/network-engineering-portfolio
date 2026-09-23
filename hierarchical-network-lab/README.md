@@ -7,7 +7,7 @@ A complete simulated enterprise network built in Cisco Packet Tracer, demonstrat
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Skills Demonstrated](#Skills Demonstrated)
+2. [Skills-Demonstrated](#Skills Demonstrated)
 3. [Topology](#topology)
 4. [VLAN Design](#vlan-design)
 5. [IP Addressing](#ip-addressing)
