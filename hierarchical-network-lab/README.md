@@ -7,17 +7,18 @@ A complete simulated enterprise network built in Cisco Packet Tracer, demonstrat
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Topology](#topology)
-3. [VLAN Design](#vlan-design)
-4. [IP Addressing](#ip-addressing)
-5. [Connectivity Table](#connectivity-table)
-6. [Design Decisions](#design-decisions)
-7. [Services Implemented](#services-implemented)
-8. [Security Hardening](#security-hardening)
-9. [Verification Evidence](#verification-evidence)
-10. [Problems & Troubleshooting](#problems--troubleshooting)
-11. [Known Simulator Limitations](#known-simulator-limitations)
-12. [Future Work](#future-work)
+2. [Skills Demonstrated](#Skills Demonstrated)
+3. [Topology](#topology)
+4. [VLAN Design](#vlan-design)
+5. [IP Addressing](#ip-addressing)
+6. [Connectivity Table](#connectivity-table)
+7. [Design Decisions](#design-decisions)
+8. [Services Implemented](#services-implemented)
+9. [Security Hardening](#security-hardening)
+10. [Verification Evidence](#verification-evidence)
+11. [Problems & Troubleshooting](#problems--troubleshooting)
+12. [Known Simulator Limitations](#known-simulator-limitations)
+13. [Future Work](#future-work)
 
 ---
 
