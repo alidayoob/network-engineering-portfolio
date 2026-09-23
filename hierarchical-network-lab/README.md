@@ -266,7 +266,8 @@ Network Diagramming · IP Address Management (IPAM) Tables · Technical README A
 - From an allowed pc (ADMIN01)
 ![SSH-Login](evidence/SSH-Login-allowed.png)
 
-- From any other device inside the network 
+- From any other device inside the network  
+  
 ![SSH-Login2](evidence/SSH-Login-deni.png)
 
 8. **DNS + HTTP:** a browser on an internal PC successfully resolves `google.com` via the internal DNS server and loads the simulated web page — full application-layer verification of the entire network stack.
