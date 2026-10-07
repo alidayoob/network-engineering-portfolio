@@ -281,29 +281,24 @@ This section documents real issues encountered during the build and how each was
 
 | # | Problem | Root Cause | Resolution |
 |---|---|---|---|
-| 1 | VLAN subnetting arithmetic error | Incremented by 17 instead of 16 per block | Corrected block-size math (block size = 2^host-bits, always a clean multiple) |
-| 2 | Internet cloud not connected to edge router | Initial diagram oversight | Connected cloud + added a second (backup) router |
-| 3 | Repeated "bad mask" errors when assigning IPs | Assigning the Network ID instead of a usable host address | Checked: does the last octet divide evenly by the block size? |
-| 4 | WAN link addressing conflict (private IPs on a P2P WAN link) | Misapplied "private vs. public" thinking to a point-to-point link | Both ends of any P2P link must share the same subnet, regardless of address type |
-| 5 | DSW1 missing an entire link to CSW2 | Two interface IPs were swapped | Cross-checked against the actual connectivity table and corrected addresses |
-| 6 | EtherChannel between CSW1–CSW2 down despite member ports being up | Likely `channel-group` mode mismatch | Verified with `show etherchannel summary`; aligned modes on both ends |
-| 7 | Core↔Distribution fiber links down | Multi-mode fiber used with single-mode-only SFP transceivers | Matched fiber type to transceiver type |
-| 8 | VLANs missing from local switch database | `allowed vlan` configured on trunk without first creating the VLAN locally | Added `vlan <id> / name <name>` on every switch before trunking |
-| 9 | `bpdufilter` mistakenly used instead of `bpduguard` | Misunderstanding: filter silently disables STP awareness (both directions) rather than protecting the port | Removed `bpdufilter`; kept `bpduguard` only |
-| 10 | Port-security violations despite correct-looking config | Stale sticky MAC addresses from earlier testing no longer matched the connected device | Cleared old sticky entries, allowed re-learning |
-| 11 | STP Root and HSRP Active assigned inconsistently | Two separate decisions made without cross-referencing each other | Unified the split (same switch = both Root and Active per VLAN group) |
-| 12 | Loopback0 IP conflict on R1 | WAN link was widened to a /29, which absorbed the Loopback's /32 address | Moved all router-id Loopbacks to a dedicated, unused range (10.255.255.x) |
-| 13 | `switchport port-security maximum X vlan access/voice` rejected | Unsupported command on this Packet Tracer IOS image | Reverted to a single combined `maximum` value |
-| 14 | Access switches completely unreachable for NTP/SSH/Syslog | No IP address existed anywhere on the switches (default VLAN 1 shut down) | Built a dedicated Management VLAN (900) with an SVI + `ip default-gateway` on every access switch |
-| 15 | Massive NTP time offset (~28 seconds) between routers | R1 and R2 clocks were set manually several minutes apart | Re-set both clocks manually within seconds of each other |
-| 16 | NTP peer stuck in `.INIT.` via Loopback address despite working routing | `ntp source` command unsupported in this Packet Tracer IOS image | Used the physical interface address as the NTP peer instead of the Loopback |
-| 17 | `logging trap informational` rejected | Simulator only supports `debugging` severity for this command | Used `debugging` and documented the limitation |
-| 18 | `logging source-interface vlan900` command not recognized | Unsupported command on this platform/model | Documented as a simulator limitation; logs appear sourced from the actual egress interface instead |
-| 19 | Temporary OSPF/HSRP flapping after adding VLAN 900 | New SVI wasn't yet marked passive for OSPF | Added `passive-interface vlan900`; allowed convergence time |
-| 20 | All IP phones registered with the same extension (1001) | Every `ephone` was configured with `button 1:1` instead of a unique DN mapping | Corrected each `button` mapping to match its own `ephone-dn` |
-| 21 | `telephony-service` command rejected on R2 | Voice/UC feature package not licensed on the image | `license boot module c2900 technology-package uc` + reload |
-| 22 | HTTP page returned "File Not Found" | Web page file was named `google.com.html` instead of `index.html` (the default document name the server looks for) | Renamed file to `index.html` |
-
+| 1 | Internet cloud not connected to edge router | Initial diagram oversight | Connected cloud + added a second (backup) router |
+| 2 | WAN link addressing conflict (private IPs on a P2P WAN link) | Misapplied "private vs. public" thinking to a point-to-point link | Both ends of any P2P link must share the same subnet, regardless of address type |
+| 3 | DSW1 missing an entire link to CSW2 | Two interface IPs were swapped | Cross-checked against the actual connectivity table and corrected addresses |
+| 4 | EtherChannel between CSW1–CSW2 down despite member ports being up | Likely `channel-group` mode mismatch | Verified with `show etherchannel summary`; aligned modes on both ends |
+| 5 | Core↔Distribution fiber links down | Multi-mode fiber used with single-mode-only SFP transceivers | Matched fiber type to transceiver type |
+| 6 | VLANs missing from local switch database | `allowed vlan` configured on trunk without first creating the VLAN locally | Added `vlan <id> / name <name>` on every switch before trunking |
+| 7 | Port-security violations despite correct-looking config | Stale sticky MAC addresses from earlier testing no longer matched the connected device | Cleared old sticky entries, allowed re-learning |
+| 8 | STP Root and HSRP Active assigned inconsistently | Two separate decisions made without cross-referencing each other | Unified the split (same switch = both Root and Active per VLAN group) |
+| 9 | Loopback0 IP conflict on R1 | WAN link was widened to a /29, which absorbed the Loopback's /32 address | Moved all router-id Loopbacks to a dedicated, unused range (10.255.255.x) |
+| 10 | `switchport port-security maximum X vlan access/voice` rejected | Unsupported command on this Packet Tracer IOS image | Reverted to a single combined `maximum` value |
+| 11 | Access switches completely unreachable for NTP/SSH/Syslog | No IP address existed anywhere on the switches (default VLAN 1 shut down) | Built a dedicated Management VLAN (900) with an SVI + `ip default-gateway` on every access switch |
+| 12 | Massive NTP time offset (~28 seconds) between routers | R1 and R2 clocks were set manually several minutes apart | Re-set both clocks manually within seconds of each other |
+| 13 | NTP peer stuck in `.INIT.` via Loopback address despite working routing | `ntp source` command unsupported in this Packet Tracer IOS image | Used the physical interface address as the NTP peer instead of the Loopback |
+| 14 | `logging trap informational` rejected | Simulator only supports `debugging` severity for this command | Used `debugging` and documented the limitation |
+| 15 | `logging source-interface vlan900` command not recognized | Unsupported command on this platform/model | Documented as a simulator limitation; logs appear sourced from the actual egress interface instead |
+| 16 | Temporary OSPF/HSRP flapping after adding VLAN 900 | New SVI wasn't yet marked passive for OSPF | Added `passive-interface vlan900`; allowed convergence time |
+| 17 | All IP phones registered with the same extension (1001) | Every `ephone` was configured with `button 1:1` instead of a unique DN mapping | Corrected each `button` mapping to match its own `ephone-dn` |
+| 18 | `telephony-service` command rejected on R2 | Voice/UC feature package not licensed on the image | `license boot module c2900 technology-package uc` + reload |
 ---
 
 ## Known Simulator Limitations
