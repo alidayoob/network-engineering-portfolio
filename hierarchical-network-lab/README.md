@@ -4,7 +4,7 @@ A complete simulated enterprise network built in Cisco Packet Tracer, demonstrat
 You can check the ![config](configs) file to read devices configurations.
 
 ---
-![Lab Topology](evidence/topologyAI.png)
+![Lab Topology](evidence/topologyAI.svg)
 ## Table of Contents
 
 1. [Overview](#overview)
