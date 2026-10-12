@@ -1,4 +1,4 @@
-'''
+```
 R2#show running-config 
 Building configuration...
 
@@ -187,4 +187,4 @@ end
 
 
 R2# 
-'''
+```

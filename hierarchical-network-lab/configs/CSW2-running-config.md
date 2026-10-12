@@ -1,4 +1,4 @@
-'''
+```
 CSW2#show running-config 
 Building configuration...
 
@@ -184,4 +184,4 @@ end
 
 
 CSW2#
-'''
+```
