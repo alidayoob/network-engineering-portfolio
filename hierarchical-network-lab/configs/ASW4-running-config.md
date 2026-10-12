@@ -1,3 +1,4 @@
+'''
 ASW4#show running-config 
 Building configuration...
 
@@ -147,3 +148,4 @@ end
 
 
 ASW4#
+'''

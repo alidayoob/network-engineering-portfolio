@@ -1,3 +1,4 @@
+'''
 DSW1#show running-config 
 Building configuration...
 
@@ -287,3 +288,4 @@ end
 
 
 DSW1#
+'''
